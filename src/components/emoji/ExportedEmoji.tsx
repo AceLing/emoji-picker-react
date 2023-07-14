@@ -10,12 +10,14 @@ export function ExportedEmoji({
   emojiStyle = EmojiStyle.APPLE,
   lazyLoad = false,
   getEmojiUrl,
+  crossOrigin,
 }: {
   unified: string;
   emojiStyle?: EmojiStyle;
   size?: number;
   lazyLoad?: boolean;
   getEmojiUrl?: GetEmojiUrl;
+  crossOrigin?: '' | 'anonymous' | 'use-credentials' | undefined;
 }) {
   if (!unified) {
     return null;
@@ -28,6 +30,7 @@ export function ExportedEmoji({
       emojiStyle={emojiStyle}
       lazyLoad={lazyLoad}
       getEmojiUrl={getEmojiUrl}
+      crossOrigin={crossOrigin}
     />
   );
 }
