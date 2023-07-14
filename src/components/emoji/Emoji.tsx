@@ -32,6 +32,7 @@ type BaseProps = {
   size?: number;
   lazyLoad?: boolean;
   getEmojiUrl?: GetEmojiUrl;
+  crossOrigin?: '' | 'anonymous' | 'use-credentials' | undefined;
 };
 
 export function ClickableEmoji({
@@ -44,6 +45,7 @@ export function ClickableEmoji({
   size,
   lazyLoad,
   getEmojiUrl,
+  crossOrigin,
 }: ClickableEmojiProps) {
   const hasVariations = emojiHasVariations(emoji);
 
@@ -53,7 +55,7 @@ export function ClickableEmoji({
         [ClassNames.hidden]: hidden,
         [ClassNames.hiddenOnSearch]: hiddenOnSearch,
         [ClassNames.visible]: !hidden && !hiddenOnSearch,
-        [ClassNames.emojiHasVariations]: hasVariations && showVariations,
+        [ClassNames.emojiHasVariatios]: hasVariations && showVariations,
       })}
       data-unified={unified}
       // @ts-ignore - let's ignore the fact this is not a real react ref, ok?
@@ -67,6 +69,7 @@ export function ClickableEmoji({
         emojiStyle={emojiStyle}
         lazyLoad={lazyLoad}
         getEmojiUrl={getEmojiUrl}
+        crossOrigin={crossOrigin}
       />
     </Button>
   );
@@ -79,6 +82,7 @@ export function ViewOnlyEmoji({
   size,
   lazyLoad,
   getEmojiUrl = emojiUrlByUnified,
+  crossOrigin,
 }: BaseProps) {
   const style = {} as React.CSSProperties;
   if (size) {
@@ -102,6 +106,7 @@ export function ViewOnlyEmoji({
           emojiStyle={emojiStyle}
           lazyLoad={lazyLoad}
           getEmojiUrl={getEmojiUrl}
+          crossOrigin={crossOrigin}
         />
       )}
     </>
@@ -133,6 +138,7 @@ function EmojiImg({
   style,
   lazyLoad = false,
   getEmojiUrl,
+  crossOrigin,
 }: {
   emoji: DataEmoji;
   unified: string;
@@ -140,6 +146,7 @@ function EmojiImg({
   style: React.CSSProperties;
   lazyLoad?: boolean;
   getEmojiUrl: GetEmojiUrl;
+  crossOrigin?: '' | 'anonymous' | 'use-credentials' | undefined;
 }) {
   const [, setEmojisThatFailedToLoad] = useEmojisThatFailedToLoadState();
 
@@ -151,6 +158,7 @@ function EmojiImg({
       loading={lazyLoad ? 'lazy' : 'eager'}
       onError={onError}
       style={style}
+      crossOrigin={crossOrigin}
     />
   );
 
